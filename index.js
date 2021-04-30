@@ -1,8 +1,21 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const generateMarkdown = require("./generateMarkdown")
 
-const generateMarkdown = (answers) => {
-  console.log(answers);
+const writeToFile = (answers) => {
+  const callback = (err) => {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      console.log("Write successful");
+    }
+  };
+
+  fs.appendFile(
+    "./GENERATED_README.md",
+    generateMarkdown(answers)
+    callback
+  );
 };
 
 const getAnswersFromQuestions = async (questions) => {
@@ -45,7 +58,7 @@ const init = async () => {
     },
   ];
   const answers = await getAnswersFromQuestions(questions);
-  generateMarkdown(answers);
+  writeToFile(answers);
 };
 
 init();
