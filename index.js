@@ -49,7 +49,7 @@ const init = async () => {
     {
       type: "list",
       message: "Please choose a licence for your project.",
-      name: "licence",
+      name: "license",
       choices: ["MIT", "APACHE_2.0", "GPL_3.0", "BSD_3", "None"],
     },
     {

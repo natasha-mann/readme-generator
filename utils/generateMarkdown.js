@@ -15,18 +15,24 @@ const generateMarkdown = (data) => {
   return `
   # ${data.title} 
 
+  ![${data.license} badge](https://img.shields.io/badge/license-${data.license}-green)
+
   ## Description
   ${data.description}
 
   ## Table of Contents
-    * [Installation](#installation)
-    * [Usage](#usage)
-    * [Contributing](#contributing)
-    * [Tests](#tests)
-    * [License](#license)
-    * 
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Contributing](#contributing)
+  * [Tests](#tests)
+  * [License](#license)
+  * [Questions](#questions)
+    
+
   ## Installation
+
   ${data.installation}
+  
 
   ## Usage
   ${data.usage}
@@ -37,11 +43,11 @@ const generateMarkdown = (data) => {
   ## Tests
   ${data.tests}
 
-  ## Licence
-  This project is licensed under the ${data.licence} license.
-  
+  ## License
+  This project is licensed under the ${data.license} license.
+
   ## Questions
-  If you have any questions about the repo, open an issue or contact me directly at ${data.email}. You can find more of my work at ${data.github}.
+  If you have any questions about the repo, open an issue or contact me directly at ${data.email}. You can find more of my work at [Github](${data.github}).
 `;
 };
 
