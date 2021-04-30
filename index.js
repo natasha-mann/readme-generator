@@ -1,6 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const generateMarkdown = require("./generateMarkdown")
+const generateMarkdown = require("./utils/generateMarkdown");
 
 const writeToFile = (answers) => {
   const callback = (err) => {
@@ -11,11 +11,7 @@ const writeToFile = (answers) => {
     }
   };
 
-  fs.appendFile(
-    "./GENERATED_README.md",
-    generateMarkdown(answers)
-    callback
-  );
+  fs.appendFile("./GENERATED_README.md", generateMarkdown(answers), callback);
 };
 
 const getAnswersFromQuestions = async (questions) => {
@@ -47,14 +43,22 @@ const init = async () => {
       name: "contributing",
     },
     {
+      message: "Please give the test instructions for your project.",
+      name: "tests",
+    },
+    {
       type: "list",
       message: "Please choose a licence for your project.",
       name: "licence",
       choices: ["MIT", "APACHE_2.0", "GPL_3.0", "BSD_3", "None"],
     },
     {
-      message: "Please give the test instructions for your project.",
-      name: "tests",
+      message: "What is your GitHub username?",
+      name: "github",
+    },
+    {
+      message: "What is your email address?",
+      name: "email",
     },
   ];
   const answers = await getAnswersFromQuestions(questions);
