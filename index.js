@@ -26,7 +26,8 @@ const init = async () => {
       name: "usage",
     },
     {
-      message: "Please give the contribution guidelines for your project",
+      message:
+        "If applicable, please give the contribution guidelines for your project",
       name: "contributing",
     },
     {

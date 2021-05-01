@@ -2,7 +2,6 @@
 // If there is no license, return an empty string
 function renderLicenseLink(license) {}
 
-// TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 const renderLicenseBadge = (license) => {
   if (license !== "None") {
@@ -14,7 +13,6 @@ const renderLicenseBadge = (license) => {
   }
 };
 
-// TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 const renderLicenseSection = (license) => {
   if (license !== "None") {
@@ -32,6 +30,17 @@ const renderTestsSection = (tests) => {
     return `
 ## Tests
 ${tests}
+`;
+  } else {
+    return "";
+  }
+};
+
+const renderContributingSection = (contributing) => {
+  if (contributing !== "") {
+    return `
+## Contributing
+${contributing}
 `;
   } else {
     return "";
@@ -79,6 +88,7 @@ const generateMarkdown = (answers) => {
   const licenseSection = renderLicenseSection(license);
   const tableOfContents = renderTableOfContents(answers);
   const testsSection = renderTestsSection(tests);
+  const contributingSection = renderContributingSection(contributing);
 
   return `
   # ${title} 
@@ -97,8 +107,7 @@ const generateMarkdown = (answers) => {
   ## Usage
   ${usage}
 
-  ## Contributing
-  ${contributing}
+  ${contributingSection}
 
   ${testsSection}
 
