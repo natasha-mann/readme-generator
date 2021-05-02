@@ -23,7 +23,9 @@ const renderInstallationSection = (installation) => {
   if (installation !== "") {
     return `
 ## Installation
+\`\`\`
 ${installation}
+\`\`\`
 `;
   } else {
     return "";
