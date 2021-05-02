@@ -47,27 +47,35 @@ ${contributing}
   }
 };
 
-const renderTableOfContents = (answers) => {
-  if (answers.license !== "None") {
-    return `
-  ## Table of Contents
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Contributing](#contributing)
-  * [Tests](#tests)
-  * [License](#license)
-  * [Questions](#questions)
-`;
-  } else {
-    return `
-  ## Table of Contents
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Contributing](#contributing)
-  * [Tests](#tests)
-  * [Questions](#questions)
-`;
-  }
+const renderTableOfContents = ({
+  installation,
+  usage,
+  contributing,
+  tests,
+  license,
+}) => {
+  const answersArray = Object.entries({
+    installation,
+    usage,
+    contributing,
+    tests,
+    license,
+  });
+  console.log(answersArray);
+  const tableOfContentsArray = [];
+  const callback = ([key, value]) => {
+    if (value === "" || value === "None") {
+      console.log(value, "empty", value === "");
+    } else {
+      tableOfContentsArray.push(`* [${key}](#${key})\n`);
+    }
+  };
+
+  answersArray.forEach(callback);
+  console.log(tableOfContentsArray);
+  const tableOfContents = tableOfContentsArray.join(" ");
+  console.log(tableOfContents);
+  return tableOfContents;
 };
 
 // TODO: Create a function to generate markdown for README
@@ -86,7 +94,13 @@ const generateMarkdown = (answers) => {
 
   const licenseBadge = renderLicenseBadge(license);
   const licenseSection = renderLicenseSection(license);
-  const tableOfContents = renderTableOfContents(answers);
+  const tableOfContents = renderTableOfContents({
+    installation,
+    usage,
+    contributing,
+    tests,
+    license,
+  });
   const testsSection = renderTestsSection(tests);
   const contributingSection = renderContributingSection(contributing);
 
@@ -98,7 +112,9 @@ const generateMarkdown = (answers) => {
   ## Description
   ${description}
 
-  ${tableOfContents}  
+  ## Table of Contents
+  ${tableOfContents}
+  * [Questions](#questions)  
 
   ## Installation
 
