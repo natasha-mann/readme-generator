@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const generateMarkdown = require("./utils/generateMarkdown");
 const writeToFile = require("./writeToFile");
 
 const getAnswersFromQuestions = async (questions) => {
@@ -51,7 +52,8 @@ const init = async () => {
     },
   ];
   const answers = await getAnswersFromQuestions(questions);
-  writeToFile(answers);
+  const generatedMarkdown = generateMarkdown(answers);
+  writeToFile(generatedMarkdown);
 };
 
 init();
