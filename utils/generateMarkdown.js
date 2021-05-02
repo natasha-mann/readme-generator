@@ -145,7 +145,7 @@ const generateMarkdown = (answers) => {
   ${licenseSection}
 
   ## Questions
-  If you have any questions about the repo, open an issue or contact me directly at ${email}. You can find more of my work on [Github](${github}).
+  If you have any questions about the repo, open an issue or contact me directly by [email](mailto:${email}). You can find more of my work on [Github](${github}).
 `;
 };
 
