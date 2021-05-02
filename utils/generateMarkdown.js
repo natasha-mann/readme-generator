@@ -1,7 +1,3 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseLink(license) {}
-
 const renderLicenseBadge = (license) => {
   if (license !== "None") {
     return `
@@ -23,22 +19,11 @@ This project is licensed under the ${license} license.
   }
 };
 
-const renderTestsSection = (tests) => {
-  if (tests !== "") {
+const renderInstallationSection = (installation) => {
+  if (installation !== "") {
     return `
-## Tests
-${tests}
-`;
-  } else {
-    return "";
-  }
-};
-
-const renderContributingSection = (contributing) => {
-  if (contributing !== "") {
-    return `
-## Contributing
-${contributing}
+## Installation
+${installation}
 `;
   } else {
     return "";
@@ -56,11 +41,22 @@ ${usage}
   }
 };
 
-const renderInstallationSection = (installation) => {
-  if (installation !== "") {
+const renderContributingSection = (contributing) => {
+  if (contributing !== "") {
     return `
-## Installation
-${installation}
+## Contributing
+${contributing}
+`;
+  } else {
+    return "";
+  }
+};
+
+const renderTestsSection = (tests) => {
+  if (tests !== "") {
+    return `
+## Tests
+${tests}
 `;
   } else {
     return "";
@@ -109,8 +105,6 @@ const generateMarkdown = (answers) => {
     email,
   } = answers;
 
-  const licenseBadge = renderLicenseBadge(license);
-  const licenseSection = renderLicenseSection(license);
   const tableOfContents = renderTableOfContents({
     installation,
     usage,
@@ -118,10 +112,13 @@ const generateMarkdown = (answers) => {
     tests,
     license,
   });
-  const testsSection = renderTestsSection(tests);
-  const contributingSection = renderContributingSection(contributing);
-  const usageSection = renderUsageSection(usage);
+
+  const licenseBadge = renderLicenseBadge(license);
+  const licenseSection = renderLicenseSection(license);
   const installationSection = renderInstallationSection(installation);
+  const usageSection = renderUsageSection(usage);
+  const contributingSection = renderContributingSection(contributing);
+  const testsSection = renderTestsSection(tests);
 
   return `
   # ${title} 
