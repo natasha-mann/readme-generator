@@ -90,6 +90,7 @@ const renderTableOfContents = ({
   };
 
   answersArray.forEach(callback);
+  tableOfContentsArray.push("* [Questions](#questions)");
   const tableOfContents = tableOfContentsArray.join(" ");
   return tableOfContents;
 };
@@ -132,7 +133,6 @@ const generateMarkdown = (answers) => {
 
   ## Table of Contents
   ${tableOfContents}
-  * [Questions](#questions)  
 
   ${installationSection}
 
