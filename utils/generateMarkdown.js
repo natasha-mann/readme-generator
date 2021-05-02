@@ -86,7 +86,8 @@ const renderTableOfContents = ({
     if (value === "" || value === "None") {
       return "";
     } else {
-      tableOfContentsArray.push(`* [${key}](#${key})\n`);
+      const upperCaseKey = key.charAt(0).toUpperCase() + key.slice(1);
+      tableOfContentsArray.push(`* [${upperCaseKey}](#${key})\n`);
     }
   };
 
