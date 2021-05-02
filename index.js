@@ -8,7 +8,7 @@ const getAnswersFromQuestions = async (questions) => {
 };
 
 const init = async () => {
-  const questions = [
+  const initialQuestions = [
     {
       message: "What is the title of your project?",
       name: "title",
@@ -16,10 +16,6 @@ const init = async () => {
     {
       message: "Please give a short description for your project",
       name: "description",
-    },
-    {
-      message: "What are the installation instructions for your project?",
-      name: "installation",
     },
 
     {
@@ -31,11 +27,7 @@ const init = async () => {
         "If applicable, please give the contribution guidelines for your project",
       name: "contributing",
     },
-    {
-      message:
-        "If applicable, please give the test instructions for your project",
-      name: "tests",
-    },
+
     {
       type: "list",
       message: "Please choose a licence for your project",
@@ -51,7 +43,61 @@ const init = async () => {
       name: "email",
     },
   ];
-  const answers = await getAnswersFromQuestions(questions);
+
+  const getInstallationInfo = async () => {
+    const confirmInstallationQuestion = {
+      type: "confirm",
+      message: "Would you like to add installation guidelines for your app?",
+      name: "confirmInstallation",
+    };
+
+    const isConfirmInstallation = await getAnswersFromQuestions(
+      confirmInstallationQuestion
+    );
+
+    if (isConfirmInstallation.confirmInstallation) {
+      const installationDetailQuestion = {
+        message: "What are the installation instructions for your project?",
+        name: "installation",
+      };
+
+      const installationDetail = await getAnswersFromQuestions(
+        installationDetailQuestion
+      );
+      return installationDetail;
+    } else {
+      return { installation: "" };
+    }
+  };
+
+  const getTestInfo = async () => {
+    const confirmTestsQuestion = {
+      type: "confirm",
+      message: "Would you like to add testing guidelines for your app?",
+      name: "confirmTests",
+    };
+
+    const isConfirmTests = await getAnswersFromQuestions(confirmTestsQuestion);
+
+    if (isConfirmTests.confirmTests) {
+      const testsDetailQuestion = {
+        message: "Please give the test instructions for your project",
+        name: "tests",
+      };
+
+      const testsDetail = await getAnswersFromQuestions(testsDetailQuestion);
+      return testsDetail;
+    } else {
+      return { tests: "" };
+    }
+  };
+
+  const initialAnswers = await getAnswersFromQuestions(initialQuestions);
+  const installationAnswers = await getInstallationInfo();
+  const testAnswers = await getTestInfo();
+
+  const answers = { ...initialAnswers, ...installationAnswers, ...testAnswers };
+
   const generatedMarkdown = generateMarkdown(answers);
   writeToFile(generatedMarkdown);
 };
