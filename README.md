@@ -20,7 +20,7 @@ npm install inquirer
 
 ## Link to a Demo Video
 
-Please click [here](./assets/images/screenshot-1.png)
+Please click [here](#)
 to view the demo.
 
 ## Questions
