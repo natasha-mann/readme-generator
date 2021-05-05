@@ -1,3 +1,9 @@
+/*
+Individual functions which render
+each section of the readme
+depending on user input
+*/
+
 const renderLicenseBadge = (license) => {
   if (license !== "None") {
     return `
@@ -130,6 +136,7 @@ const renderTableOfContents = ({
   return tableOfContents;
 };
 
+// main function to render markdown which will be written to file
 const generateMarkdown = (answers) => {
   const {
     title,
