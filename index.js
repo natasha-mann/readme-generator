@@ -8,7 +8,7 @@ const getAnswersFromQuestions = async (questions) => {
 };
 
 const init = async () => {
-  const initialQuestions = [
+  const questions = [
     {
       message: "What is the title of your project?",
       name: "title",
@@ -17,22 +17,68 @@ const init = async () => {
       message: "Please give a short description for your project",
       name: "description",
     },
-
     {
       message: "Please give the usage information for your project",
       name: "usage",
     },
     {
-      message:
-        "If applicable, please give the contribution guidelines for your project",
-      name: "contributing",
+      type: "confirm",
+      message: "Would you like to add installation guidelines for your app?",
+      name: "confirmInstallation",
     },
-
+    {
+      message: "Please add the first line of your installation code here",
+      name: "installation",
+      when: (answers) => {
+        return answers.confirmInstallation;
+      },
+    },
+    {
+      type: "confirm",
+      message:
+        "Would you like to add any further installation guidelines for your app?",
+      name: "confirmFurtherInstallation",
+      when: (answers) => {
+        return answers.confirmInstallation;
+      },
+    },
+    {
+      message: "Please add the next line of your installation code here",
+      name: "furtherInstallation",
+      when: (answers) => {
+        return answers.confirmFurtherInstallation;
+      },
+    },
+    {
+      type: "confirm",
+      message:
+        "Would you like to give contribution guidelines for your project?",
+      name: "confirmContribution",
+    },
+    {
+      message: "Please give the contribution guidelines for your project",
+      name: "contributing",
+      when: (answers) => {
+        return answers.confirmContribution;
+      },
+    },
     {
       type: "list",
       message: "Please choose a licence for your project",
       name: "license",
       choices: ["MIT", "APACHE_2.0", "GPL_3.0", "BSD_3", "None"],
+    },
+    {
+      type: "confirm",
+      message: "Would you like to add testing guidelines for your app?",
+      name: "confirmTests",
+    },
+    {
+      message: "Please give the test instructions for your project",
+      name: "tests",
+      when: (answers) => {
+        return answers.confirmTests;
+      },
     },
     {
       message: "What is your GitHub username?",
@@ -50,59 +96,7 @@ const init = async () => {
     },
   ];
 
-  const getInstallationInfo = async () => {
-    const confirmInstallationQuestion = {
-      type: "confirm",
-      message: "Would you like to add installation guidelines for your app?",
-      name: "confirmInstallation",
-    };
-
-    const isConfirmInstallation = await getAnswersFromQuestions(
-      confirmInstallationQuestion
-    );
-
-    if (isConfirmInstallation.confirmInstallation) {
-      const installationDetailQuestion = {
-        message: "What are the installation instructions for your project?",
-        name: "installation",
-      };
-
-      const installationDetail = await getAnswersFromQuestions(
-        installationDetailQuestion
-      );
-      return installationDetail;
-    } else {
-      return { installation: "" };
-    }
-  };
-
-  const getTestInfo = async () => {
-    const confirmTestsQuestion = {
-      type: "confirm",
-      message: "Would you like to add testing guidelines for your app?",
-      name: "confirmTests",
-    };
-
-    const isConfirmTests = await getAnswersFromQuestions(confirmTestsQuestion);
-
-    if (isConfirmTests.confirmTests) {
-      const testsDetailQuestion = {
-        message: "Please give the test instructions for your project",
-        name: "tests",
-      };
-
-      const testsDetail = await getAnswersFromQuestions(testsDetailQuestion);
-      return testsDetail;
-    } else {
-      return { tests: "" };
-    }
-  };
-
-  const initialAnswers = await getAnswersFromQuestions(initialQuestions);
-  const installationAnswers = await getInstallationInfo();
-  const testAnswers = await getTestInfo();
-
-  const answers = { ...initialAnswers, ...installationAnswers, ...testAnswers };
+  const answers = await getAnswersFromQuestions(questions);
 
   const generatedMarkdown = generateMarkdown(answers);
   writeToFile(generatedMarkdown);

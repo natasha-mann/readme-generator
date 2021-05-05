@@ -45,12 +45,21 @@ For further information about this license, see [here](${licenseLink}).
   }
 };
 
-const renderInstallationSection = (installation) => {
-  if (installation !== "") {
+const renderInstallationSection = (installation, furtherInstallation) => {
+  if (installation && !furtherInstallation) {
     return `
 ## Installation
 \`\`\`
 ${installation}
+\`\`\`
+`;
+  } else if (installation && furtherInstallation) {
+    return `
+## Installation
+\`\`\`
+${installation}
+    
+${furtherInstallation}
 \`\`\`
 `;
   } else {
@@ -59,7 +68,7 @@ ${installation}
 };
 
 const renderUsageSection = (usage) => {
-  if (usage !== "") {
+  if (usage) {
     return `
 ## Usage
 ${usage}
@@ -70,7 +79,7 @@ ${usage}
 };
 
 const renderContributingSection = (contributing) => {
-  if (contributing !== "") {
+  if (contributing) {
     return `
 ## Contributing
 ${contributing}
@@ -81,7 +90,7 @@ ${contributing}
 };
 
 const renderTestsSection = (tests) => {
-  if (tests !== "") {
+  if (tests) {
     return `
 ## Tests
 ${tests}
@@ -107,7 +116,7 @@ const renderTableOfContents = ({
   });
   const tableOfContentsArray = [];
   const callback = ([key, value]) => {
-    if (value === "" || value === "None") {
+    if (!value || value === "None") {
       return "";
     } else {
       const upperCaseKey = key.charAt(0).toUpperCase() + key.slice(1);
@@ -126,6 +135,7 @@ const generateMarkdown = (answers) => {
     title,
     description,
     installation,
+    furtherInstallation,
     usage,
     contributing,
     tests,
@@ -144,7 +154,10 @@ const generateMarkdown = (answers) => {
 
   const licenseBadge = renderLicenseBadge(license);
   const licenseSection = renderLicenseSection(license);
-  const installationSection = renderInstallationSection(installation);
+  const installationSection = renderInstallationSection(
+    installation,
+    furtherInstallation
+  );
   const usageSection = renderUsageSection(usage);
   const contributingSection = renderContributingSection(contributing);
   const testsSection = renderTestsSection(tests);
