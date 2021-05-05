@@ -2,12 +2,14 @@ const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 const writeToFile = require("./utils/writeToFile");
 
+// runs inquirer prompts and returns user answers
 const getAnswersFromQuestions = async (questions) => {
   const answers = await inquirer.prompt(questions);
   return answers;
 };
 
 const init = async () => {
+  // questions to be prompted by inquirer
   const questions = [
     {
       message: "What is the title of your project?",
@@ -26,6 +28,8 @@ const init = async () => {
       message: "Would you like to add installation guidelines for your app?",
       name: "confirmInstallation",
     },
+
+    // the questions with a "when" key will only run if the "when" function returns true
     {
       message: "Please add the first line of your installation code here",
       name: "installation",
@@ -98,7 +102,9 @@ const init = async () => {
 
   const answers = await getAnswersFromQuestions(questions);
 
+  // user answers are passed to generateMarkdown fn and return value is stored
   const generatedMarkdown = generateMarkdown(answers);
+
   writeToFile(generatedMarkdown);
 };
 
