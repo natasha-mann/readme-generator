@@ -20,8 +20,7 @@ npm install inquirer
 
 ## Link to a Demo Video
 
-Please click [here](#)
-to view the demo.
+Please click [here](https://drive.google.com/file/d/1etUpWrrLR_eYT6ypBEDKiGV2DphnpQNH/view?usp=sharing) to view the demo.
 
 ## Questions
 
