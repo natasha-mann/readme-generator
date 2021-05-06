@@ -98,6 +98,12 @@ const init = async () => {
         );
       },
     },
+    {
+      message:
+        "What would you like to name your README.md file? *** Only enter the file name, without the .md",
+      name: "readme",
+      default: "GENERATEDREADME",
+    },
   ];
 
   const answers = await getAnswersFromQuestions(questions);
@@ -105,7 +111,7 @@ const init = async () => {
   // user answers are passed to generateMarkdown fn and return value is stored
   const generatedMarkdown = generateMarkdown(answers);
 
-  writeToFile(generatedMarkdown);
+  writeToFile(answers.readme, generatedMarkdown);
 };
 
 init();

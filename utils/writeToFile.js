@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const writeToFile = (generatedMarkdown) => {
+const writeToFile = (fileName, generatedMarkdown) => {
   const callback = (err) => {
     if (err) {
       console.log("Error", err);
@@ -9,7 +9,7 @@ const writeToFile = (generatedMarkdown) => {
     }
   };
 
-  fs.appendFile("./GENERATED_README.md", generatedMarkdown, callback);
+  fs.appendFile(`./${fileName}.md`, generatedMarkdown, callback);
 };
 
 module.exports = writeToFile;
