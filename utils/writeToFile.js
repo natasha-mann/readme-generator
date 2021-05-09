@@ -9,7 +9,7 @@ const writeToFile = (fileName, generatedMarkdown) => {
     }
   };
 
-  fs.appendFile(`./${fileName}.md`, generatedMarkdown, callback);
+  fs.writeFile(`./${fileName}.md`, generatedMarkdown, callback);
 };
 
 module.exports = writeToFile;
