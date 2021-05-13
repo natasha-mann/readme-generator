@@ -104,12 +104,12 @@ const init = async () => {
     },
   ];
 
-  const answers = await getAnswersFromQuestions(questions);
+  const { readme, ...answers } = await getAnswersFromQuestions(questions);
 
   // user answers are passed to generateMarkdown fn and return value is stored
   const generatedMarkdown = generateMarkdown(answers);
 
-  writeToFile(answers.readme, generatedMarkdown);
+  writeToFile(readme, generatedMarkdown);
 };
 
 init();
