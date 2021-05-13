@@ -33,27 +33,8 @@ const renderLicenseSection = (license) =>
     )}).`
     : "";
 
-const renderInstallationSection = (installation, furtherInstallation) => {
-  if (installation && !furtherInstallation) {
-    return `
-## Installation
-\`\`\`
-${installation}
-\`\`\`
-`;
-  } else if (installation && furtherInstallation) {
-    return `
-## Installation
-\`\`\`
-${installation}
-    
-${furtherInstallation}
-\`\`\`
-`;
-  } else {
-    return "";
-  }
-};
+const renderInstallationSection = (...args) =>
+  args.length ? `## Installation\n\`\`\`\n${args.join("\n")}\n\`\`\`\n` : "";
 
 const renderUsageSection = (usage) => {
   if (usage) {
