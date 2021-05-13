@@ -46,34 +46,19 @@ const renderContributingSection = (contributing) =>
 
 const renderTestsSection = (tests) => (tests ? `## Tests\n${tests}` : "");
 
-const renderTableOfContents = ({
-  installation,
-  usage,
-  contributing,
-  tests,
-  license,
-}) => {
-  const answersArray = Object.entries({
-    installation,
-    usage,
-    contributing,
-    tests,
-    license,
-  });
-  const tableOfContentsArray = [];
-  const callback = ([key, value]) => {
-    if (!value || value === "None") {
-      return "";
-    } else {
-      const upperCaseKey = key.charAt(0).toUpperCase() + key.slice(1);
-      tableOfContentsArray.push(`* [${upperCaseKey}](#${key})\n`);
-    }
-  };
+const renderTableOfContents = (contents) => {
+  const callback = (acc, [key, value]) =>
+    !value || value === "None"
+      ? [...acc, ""]
+      : [
+          ...acc,
+          `* [${key.charAt(0).toUpperCase() + key.slice(1)}](#${key})\n`,
+        ];
 
-  answersArray.forEach(callback);
-  tableOfContentsArray.push("* [Questions](#questions)");
-  const tableOfContents = tableOfContentsArray.join(" ");
-  return tableOfContents;
+  return [
+    ...Object.entries(contents).reduce(callback, []),
+    "* [Questions](#questions)",
+  ].join(" ");
 };
 
 // main function to render markdown which will be written to file
