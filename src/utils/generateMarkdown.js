@@ -4,15 +4,10 @@ each section of the readme
 depending on user input
 */
 
-const renderLicenseBadge = (license) => {
-  if (license !== "None") {
-    return `
-![${license} badge](https://img.shields.io/badge/license-${license}-green)
-`;
-  } else {
-    return "";
-  }
-};
+const renderLicenseBadge = (license) =>
+  license !== "None"
+    ? `![${license} badge](https://img.shields.io/badge/license-${license}-green)`
+    : "";
 
 const getLicenseLink = (license) => {
   switch (license) {
