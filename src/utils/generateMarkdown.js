@@ -36,16 +36,8 @@ const renderInstallationSection = (...args) =>
 
 const renderUsageSection = (usage) => (usage ? `## Usage\n${usage}` : "");
 
-const renderContributingSection = (contributing) => {
-  if (contributing) {
-    return `
-## Contributing
-${contributing}
-`;
-  } else {
-    return "";
-  }
-};
+const renderContributingSection = (contributing) =>
+  contributing ? `## Contributing\n${contributing}` : "";
 
 const renderTestsSection = (tests) => {
   if (tests) {
