@@ -34,16 +34,7 @@ const renderLicenseSection = (license) =>
 const renderInstallationSection = (...args) =>
   args.length ? `## Installation\n\`\`\`\n${args.join("\n")}\n\`\`\`\n` : "";
 
-const renderUsageSection = (usage) => {
-  if (usage) {
-    return `
-## Usage
-${usage}
-`;
-  } else {
-    return "";
-  }
-};
+const renderUsageSection = (usage) => (usage ? `## Usage\n${usage}` : "");
 
 const renderContributingSection = (contributing) => {
   if (contributing) {
