@@ -39,16 +39,7 @@ const renderUsageSection = (usage) => (usage ? `## Usage\n${usage}` : "");
 const renderContributingSection = (contributing) =>
   contributing ? `## Contributing\n${contributing}` : "";
 
-const renderTestsSection = (tests) => {
-  if (tests) {
-    return `
-## Tests
-${tests}
-`;
-  } else {
-    return "";
-  }
-};
+const renderTestsSection = (tests) => (tests ? `## Tests\n${tests}` : "");
 
 const renderTableOfContents = (contents) => {
   const callback = (acc, [key, value]) =>
