@@ -4,107 +4,47 @@ each section of the readme
 depending on user input
 */
 
-const renderLicenseBadge = (license) => {
-  if (license !== "None") {
-    return `
-![${license} badge](https://img.shields.io/badge/license-${license}-green)
-`;
-  } else {
-    return "";
-  }
-};
+const renderLicenseBadge = (license) =>
+  license !== "None"
+    ? `![${license} badge](https://img.shields.io/badge/license-${license}-green)`
+    : "";
 
 const getLicenseLink = (license) => {
   switch (license) {
     case "MIT":
       return "https://opensource.org/licenses/MIT";
-      break;
+
     case "APACHE_2.0":
       return "https://opensource.org/licenses/Apache-2.0";
-      break;
+
     case "GPL_3.0":
       return "https://www.gnu.org/licenses/gpl-3.0.en.html";
-      break;
+
     case "BSD_3":
       return "https://opensource.org/licenses/BSD-3-Clause";
-      break;
-    case "None":
-      return "";
-      break;
+
     default:
       return "";
-      break;
   }
 };
 
-const renderLicenseSection = (license) => {
-  const licenseLink = getLicenseLink(license);
-  if (license !== "None") {
-    return `
-## License
-This project is licensed under the ${license} license.
+const renderLicenseSection = (license) =>
+  license !== "None"
+    ? `## License\nThis project is licensed under the ${license} license.\nFor further information about this license, see [here](${getLicenseLink(
+        license
+      )}).
+`
+    : "";
 
-For further information about this license, see [here](${licenseLink}).
-`;
-  } else {
-    return "";
-  }
-};
+const renderInstallationSection = (...args) =>
+  args.length ? `## Installation\n\`\`\`\n${args.join("\n")}\n\`\`\`\n` : "";
 
-const renderInstallationSection = (installation, furtherInstallation) => {
-  if (installation && !furtherInstallation) {
-    return `
-## Installation
-\`\`\`
-${installation}
-\`\`\`
-`;
-  } else if (installation && furtherInstallation) {
-    return `
-## Installation
-\`\`\`
-${installation}
-    
-${furtherInstallation}
-\`\`\`
-`;
-  } else {
-    return "";
-  }
-};
+const renderUsageSection = (usage) => (usage ? `## Usage\n${usage}` : "");
 
-const renderUsageSection = (usage) => {
-  if (usage) {
-    return `
-## Usage
-${usage}
-`;
-  } else {
-    return "";
-  }
-};
+const renderContributingSection = (contributing) =>
+  contributing ? `## Contributing\n${contributing}` : "";
 
-const renderContributingSection = (contributing) => {
-  if (contributing) {
-    return `
-## Contributing
-${contributing}
-`;
-  } else {
-    return "";
-  }
-};
-
-const renderTestsSection = (tests) => {
-  if (tests) {
-    return `
-## Tests
-${tests}
-`;
-  } else {
-    return "";
-  }
-};
+const renderTestsSection = (tests) => (tests ? `## Tests\n${tests}` : "");
 
 const renderTableOfContents = ({
   installation,
