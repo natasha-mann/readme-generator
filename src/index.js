@@ -1,15 +1,11 @@
 const inquirer = require("inquirer");
+
 const generateMarkdown = require("./utils/generateMarkdown");
 const writeToFile = require("./utils/writeToFile");
 
-// runs inquirer prompts and returns user answers
-const getAnswersFromQuestions = async (questions) => {
-  const answers = await inquirer.prompt(questions);
-  return answers;
-};
+const getAnswersFromQuestions = async (questions) => inquirer.prompt(questions);
 
 const init = async () => {
-  // questions to be prompted by inquirer
   const questions = [
     {
       message: "What is the title of your project?",
@@ -28,8 +24,6 @@ const init = async () => {
       message: "Would you like to add installation guidelines for your app?",
       name: "confirmInstallation",
     },
-
-    // the questions with a "when" key will only run if the "when" function returns true
     {
       message: "Please add the first line of your installation code here",
       name: "installation",
@@ -92,7 +86,6 @@ const init = async () => {
       message: "What is your email address?",
       name: "email",
       validate: function (email) {
-        // Regex mail check (return true if valid mail)
         return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(
           email
         );
@@ -106,12 +99,11 @@ const init = async () => {
     },
   ];
 
-  const answers = await getAnswersFromQuestions(questions);
+  const { readme, ...answers } = await getAnswersFromQuestions(questions);
 
-  // user answers are passed to generateMarkdown fn and return value is stored
   const generatedMarkdown = generateMarkdown(answers);
 
-  writeToFile(answers.readme, generatedMarkdown);
+  writeToFile(readme, generatedMarkdown);
 };
 
 init();
