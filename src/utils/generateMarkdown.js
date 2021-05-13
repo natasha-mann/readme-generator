@@ -26,11 +26,9 @@ const getLicenseLink = (license) => {
 
 const renderLicenseSection = (license) =>
   license !== "None"
-    ? `## License
-    This project is licensed under the ${license} license.
-    For further information about this license, see [here](${getLicenseLink(
-      license
-    )}).`
+    ? `## License\nThis project is licensed under the ${license} license.\nFor further information about this license, see [here](${getLicenseLink(
+        license
+      )}).`
     : "";
 
 const renderInstallationSection = (...args) =>
