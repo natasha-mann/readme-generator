@@ -1,12 +1,10 @@
 const inquirer = require("inquirer");
+
 const generateMarkdown = require("./utils/generateMarkdown");
 const writeToFile = require("./utils/writeToFile");
 
 // runs inquirer prompts and returns user answers
-const getAnswersFromQuestions = async (questions) => {
-  const answers = await inquirer.prompt(questions);
-  return answers;
-};
+const getAnswersFromQuestions = async (questions) => inquirer.prompt(questions);
 
 const init = async () => {
   // questions to be prompted by inquirer
