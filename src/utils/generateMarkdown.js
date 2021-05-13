@@ -1,9 +1,3 @@
-/*
-Individual functions which render
-each section of the readme
-depending on user input
-*/
-
 const renderLicenseBadge = (license) =>
   license !== "None"
     ? `![${license} badge](https://img.shields.io/badge/license-${license}-green)`
