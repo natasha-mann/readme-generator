@@ -21,36 +21,9 @@ const init = async () => {
       message: "Please give the usage information for your project",
       name: "usage",
     },
-    {
-      type: "confirm",
-      message: "Would you like to add installation guidelines for your app?",
-      name: "confirmInstallation",
-    },
 
     // the questions with a "when" key will only run if the "when" function returns true
-    {
-      message: "Please add the first line of your installation code here",
-      name: "installation",
-      when: (answers) => {
-        return answers.confirmInstallation;
-      },
-    },
-    {
-      type: "confirm",
-      message:
-        "Would you like to add any further installation guidelines for your app?",
-      name: "confirmFurtherInstallation",
-      when: (answers) => {
-        return answers.confirmInstallation;
-      },
-    },
-    {
-      message: "Please add the next line of your installation code here",
-      name: "furtherInstallation",
-      when: (answers) => {
-        return answers.confirmFurtherInstallation;
-      },
-    },
+
     {
       type: "confirm",
       message:
@@ -104,10 +77,72 @@ const init = async () => {
     },
   ];
 
-  const { readme, ...answers } = await getAnswersFromQuestions(questions);
+  const { readme, ...initialAnswers } = await getAnswersFromQuestions(
+    questions
+  );
+
+  const getInstallationAnswers = async () => {
+    const confirmInstallationQuestion = [
+      {
+        type: "confirm",
+        message: "Would you like to add installation guidelines for your app?",
+        name: "confirmInstallation",
+      },
+    ];
+
+    const furtherInstallationQuestion = [
+      {
+        message: "Please add your installation code here",
+        name: "installationCode",
+      },
+    ];
+
+    const confirmFurtherInstallationQuestion = [
+      {
+        type: "confirm",
+        message:
+          "Would you like to add any further installation guidelines for your app?",
+        name: "confirmFurtherInstallation",
+      },
+    ];
+
+    const { confirmInstallation } = await getAnswersFromQuestions(
+      confirmInstallationQuestion
+    );
+
+    if (confirmInstallation) {
+      let inProgress = true;
+      let installationDataString = "";
+
+      while (inProgress) {
+        const { installationCode } = await getAnswersFromQuestions(
+          furtherInstallationQuestion
+        );
+
+        installationDataString += `${installationCode}\n`;
+
+        const { confirmFurtherInstallation } = await getAnswersFromQuestions(
+          confirmFurtherInstallationQuestion
+        );
+
+        if (!confirmFurtherInstallation) {
+          inProgress = false;
+        }
+      }
+
+      return installationDataString;
+    } else {
+      return "";
+    }
+  };
+
+  const installation = await getInstallationAnswers();
 
   // user answers are passed to generateMarkdown fn and return value is stored
-  const generatedMarkdown = generateMarkdown(answers);
+  const generatedMarkdown = generateMarkdown({
+    ...initialAnswers,
+    installation,
+  });
 
   writeToFile(readme, generatedMarkdown);
 };

@@ -36,8 +36,8 @@ const renderLicenseSection = (license) =>
 `
     : "";
 
-const renderInstallationSection = (...args) =>
-  args.length ? `## Installation\n\`\`\`\n${args.join("\n")}\n\`\`\`\n` : "";
+const renderInstallationSection = (installation) =>
+  installation ? `## Installation\n\`\`\`\n${installation}\n\`\`\`\n` : "";
 
 const renderUsageSection = (usage) => (usage ? `## Usage\n${usage}` : "");
 
@@ -63,11 +63,11 @@ const renderTableOfContents = (contents) => {
 
 // main function to render markdown which will be written to file
 const generateMarkdown = (answers) => {
+  console.log(answers);
   const {
     title,
     description,
     installation,
-    furtherInstallation,
     usage,
     contributing,
     tests,
@@ -86,10 +86,7 @@ const generateMarkdown = (answers) => {
 
   const licenseBadge = renderLicenseBadge(license);
   const licenseSection = renderLicenseSection(license);
-  const installationSection = renderInstallationSection(
-    installation,
-    furtherInstallation
-  );
+  const installationSection = renderInstallationSection(installation);
   const usageSection = renderUsageSection(usage);
   const contributingSection = renderContributingSection(contributing);
   const testsSection = renderTestsSection(tests);
