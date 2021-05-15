@@ -137,6 +137,7 @@ const init = async () => {
   };
 
   const installation = await getInstallationAnswers();
+  console.log(installation);
 
   // user answers are passed to generateMarkdown fn and return value is stored
   const generatedMarkdown = generateMarkdown({
