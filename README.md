@@ -14,8 +14,9 @@ For this project I created a README generator, using Node.js and the inquirer pa
 ## Installation
 
 ```
-npm init
-npm install inquirer
+git clone https://github.com/natasha-mann/readme-generator.git
+cd readme-generator
+npm install
 ```
 
 ## Link to a Demo Video
